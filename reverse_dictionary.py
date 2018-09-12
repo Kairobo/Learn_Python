@@ -1,0 +1,1 @@
+reverse_dictionary = {v: k for k, v in dictionary.items()}

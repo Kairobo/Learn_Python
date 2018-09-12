@@ -1,0 +1,105 @@
+# GIT -------------------------------------------
+commit: 6db92750b075161511a5228514fc203b8ff86304
+working_directory: CLEAN
+dirty_high-level_scripts: NO
+
+# PARAM ---------------------------------------------
+{
+   non_linearity: leaky_relu
+   data_name: mpii
+   data_options:
+   {
+      shuffle: True
+      is_sequential: False
+      num_chosen_images: None
+      ratio_of_chosen_images: None
+      image_size: 256
+      full_image: False
+      supervised_ratio: 1
+      box_padding_ratio: 0.1
+      num_supervised_images: None
+      random_jittering: True
+      jittering_max_edge_ratio: 1.5
+      jittering_max_rotation: 0
+      jittering_padding_ratio: 0.25
+   }
+   test_data_name: mpii
+   test_data_options:
+   {
+      shuffle: False
+      is_sequential: False
+      num_chosen_images: None
+      ratio_of_chosen_images: None
+      image_size: 256
+      full_image: False
+      supervised_ratio: 0
+      box_padding_ratio: 0.1
+      num_supervised_images: 0
+      random_jittering: False
+   }
+   landmark_options:
+   {
+      image_padding:
+      [
+         64
+         64
+         64
+         64
+      ]
+      detector_name: stacked_hourglass_landmark
+      num_landmarks: 16
+      heatmap_type: sigmoid
+      concentration_loss: 0.0
+      concentration_stddev_target: 0.03125
+      separation_loss: 0.0
+      separation_bandwidth: 0.05
+      equivariance_loss: 0.0
+      supervision_loss: 0
+      heatmap_supervision_loss: 1000.0
+      heatmap_supervision_stddev: 0.01
+      unsupervised_on_labeled: False
+      use_supervised_equivaraince: True
+      localizer_name: None
+      gan:
+      {
+         discriminator_loss: 0
+         generator_loss: 0
+      }
+      gt_completer_loss: 0
+   }
+   trainer_options:
+   {
+      weight_decay: 1e-06
+      optimizer: Adam
+      optimizer_options:
+      {
+      }
+      learning_rate: piecewise_constant_[200000,400000]_[0.001,0.0001,1e-05]
+      max_epochs: 100000
+      max_steps: None
+      disp_time_interval: 2
+      snapshot_interval: 3600
+      test_steps: 10000
+      permanent_snapshot_step_list:
+      [
+         50000
+         100000
+         150000
+         200000
+         300000
+      ]
+      snapshot_step_list:
+      [
+      ]
+      keep_checkpoint_every_n_hours: None
+      max_checkpoint_to_keep: None
+      bn_infer_steps: 500
+      bn_mimimum_steps_to_infer: 0
+   }
+   train_color_jittering: True
+   train_subset: train
+   train_batch_size: 32
+   test_subset: val
+   test_limit: 200
+   test_batch_size: 32
+}
